@@ -18,10 +18,10 @@ export class RequestController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener una solicitud por ID', description: 'Obtiene una solicitud por su ID.' })
-  @ApiParam({ name: 'id', type: Number }) 
+  @ApiParam({ name: 'id', type: String }) 
   @ApiResponse({ status: 200, description: 'Solicitud obtenida con éxito.', type: Request })
   @ApiNotFoundResponse({ description: 'Solicitud no encontrada.' })
-  findById(@Param('id') id: number): Request {
+  findById(@Param('id') id: string): Request {
     return this.requestService.findById(id);
   }
 
@@ -36,21 +36,21 @@ export class RequestController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Actualizar una solicitud por ID', description: 'Actualiza una solicitud por su ID.' })
-  @ApiParam({ name: 'id', type: Number }) 
+  @ApiParam({ name: 'id', type: String }) 
   @ApiBody({ type: Request })
   @ApiResponse({ status: 200, description: 'Solicitud actualizada con éxito.', type: Request })
   @ApiNotFoundResponse({ description: 'Solicitud no encontrada.' })
   @ApiBadRequestResponse({ description: 'Solicitud incorrecta.' })
-  update(@Param('id') id: number, @Body() updatedData: Request): Request {
+  update(@Param('id') id: string, @Body() updatedData: Request): Request {
     return this.requestService.update(id, updatedData);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar una solicitud por ID', description: 'Elimina una solicitud por su ID.' })
-  @ApiParam({ name: 'id', type: Number }) 
+  @ApiParam({ name: 'id', type: String }) 
   @ApiResponse({ status: 200, description: 'Solicitud eliminada con éxito.', type: Request })
   @ApiNotFoundResponse({ description: 'Solicitud no encontrada.' })
-  remove(@Param('id') id: number): Request {
+  remove(@Param('id') id: string): Request {
     return this.requestService.remove(id);
   }
 }

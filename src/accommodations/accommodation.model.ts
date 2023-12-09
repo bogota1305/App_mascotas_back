@@ -3,7 +3,7 @@ import { Localization } from "src/localization/localization.model";
 
 export class Accommodation {
     @ApiProperty({ description: 'ID de la acomodación' })
-    id: number;
+    id: string;
 
     @ApiProperty({ description: 'Fotos de la acomodación', type: [String] })
     photos: string[];
@@ -22,4 +22,19 @@ export class Accommodation {
 
     @ApiProperty({ description: 'ID del usuario propietario' })
     idUser: string;
+
+    @ApiProperty({ description: 'Tipo de servicio' })
+    tipoDeServicio: string;
+
+    @ApiProperty({ description: 'Día inicio de disponibilidad', type: Date })
+    diaInicioDisponibilidad: Date;
+
+    @ApiProperty({ description: 'Día fin de disponibilidad', type: Date })
+    diaFinDisponibilidad: Date;
+
+    @ApiProperty({ description: 'Hora inicio de disponibilidad' })
+    horaInicioDisponibilidad: number;
+
+    @ApiProperty({ description: 'Hora fin de disponibilidad' })
+    horaFinDisponibilidad: number;
 }

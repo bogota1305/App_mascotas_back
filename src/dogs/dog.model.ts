@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class Dog {
     @ApiProperty({ description: 'ID del perro' })
-    id: number;
+    id: string;
 
     @ApiProperty({ description: 'Nombre del perro' })
     nombre: string;

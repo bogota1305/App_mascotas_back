@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class Request {
     @ApiProperty({ description: 'ID de la solicitud' })
-    id: number;
+    id: string;
 
     @ApiProperty({ description: 'Estado de la solicitud' })
     estado: string;
@@ -22,14 +22,17 @@ export class Request {
     @ApiProperty({ description: 'Fecha de fin del servicio' })
     fechaDeFin: Date;
 
-    @ApiProperty({ description: 'Estado de la solicitud' })
-    estadoDeSolicitud: string;
+    @ApiProperty({ description: 'Hora de inicio del servicio' })
+    horaDeInicio: number;
 
-    @ApiProperty({ description: 'ID del perro' })
-    idPerro: number;
+    @ApiProperty({ description: 'Hora de fin del servicio' })
+    horaDeFin: number;
+
+    @ApiProperty({ description: 'ID del perro o los perros' })
+    idPerros: string[];
 
     @ApiProperty({ description: 'ID del alojamiento' })
-    idAlojamiento: number;
+    idAlojamiento: string;
 
     @ApiProperty({ description: 'Precio del servicio' })
     precio: number;

@@ -9,4 +9,11 @@ export class Rating {
 
     @ApiProperty({ description: 'Comentario de la calificación' })
     comentario: string;
+
+    @ApiProperty({ description: 'ID del usuario que crea la calificación' })
+    idUsuarioCreador: string;
+
+    @ApiProperty({ description: 'ID del usuario que recibe la calificación' })
+    idUsuarioReceptor: string;
 }
+

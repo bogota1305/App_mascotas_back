@@ -21,7 +21,7 @@ export class AccommodationsController {
   @ApiParam({ name: 'id', type: Number }) 
   @ApiResponse({ status: 200, description: 'Alojamiento obtenido con éxito.', type: Accommodation })
   @ApiNotFoundResponse({ description: 'Alojamiento no encontrado.' })
-  findById(@Param('id') id: number): Accommodation {
+  findById(@Param('id') id: string): Accommodation {
     return this.accommodationsService.findById(id);
   }
 
@@ -30,8 +30,8 @@ export class AccommodationsController {
   @ApiBody({ type: Accommodation }) 
   @ApiResponse({ status: 201, description: 'Alojamiento creado con éxito.', type: Accommodation })
   @ApiBadRequestResponse({ description: 'Solicitud incorrecta.' })
-  create(@Body() accommodationData: Accommodation): Accommodation {
-    return this.accommodationsService.create(accommodationData);
+  async create(@Body() accommodationData: Accommodation): Promise<Accommodation> {
+    return await this.accommodationsService.create(accommodationData);
   }
 
   @Put(':id')
@@ -41,8 +41,8 @@ export class AccommodationsController {
   @ApiResponse({ status: 200, description: 'Alojamiento actualizado con éxito.', type: Accommodation })
   @ApiNotFoundResponse({ description: 'Alojamiento no encontrado.' })
   @ApiBadRequestResponse({ description: 'Solicitud incorrecta.' })
-  update(@Param('id') id: number, @Body() updatedData: Accommodation): Accommodation {
-    return this.accommodationsService.update(id, updatedData);
+  async update(@Param('id') id: string, @Body() updatedData: Accommodation): Promise<Accommodation> {
+    return await this.accommodationsService.update(id, updatedData);
   }
 
   @Delete(':id')
@@ -50,7 +50,7 @@ export class AccommodationsController {
   @ApiParam({ name: 'id', type: Number }) 
   @ApiResponse({ status: 200, description: 'Alojamiento eliminado con éxito.', type: Accommodation })
   @ApiNotFoundResponse({ description: 'Alojamiento no encontrado.' })
-  remove(@Param('id') id: number): Accommodation {
+  remove(@Param('id') id: string): Accommodation {
     return this.accommodationsService.remove(id);
   }
 }

@@ -21,36 +21,36 @@ export class DogsController {
   @ApiBody({ type: Dog }) 
   @ApiResponse({ status: 201, description: 'Perro creado con éxito.', type: Dog })
   @ApiBadRequestResponse({ description: 'Solicitud incorrecta.' })
-  create(@Body() dogData: Dog): Dog {
-    return this.dogsService.create(dogData);
+  async create(@Body() dogData: Dog): Promise<Dog> {
+    return await this.dogsService.create(dogData);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener un perro por ID', description: 'Obtiene un perro por su ID.' })
-  @ApiParam({ name: 'id', type: Number }) 
+  @ApiParam({ name: 'id', type: String }) 
   @ApiResponse({ status: 200, description: 'Perro obtenido con éxito.', type: Dog })
   @ApiNotFoundResponse({ description: 'Perro no encontrado.' })
-  findById(@Param('id') id: number): Dog {
+  findById(@Param('id') id: string): Dog {
     return this.dogsService.findById(id);
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'Actualizar un perro por ID', description: 'Actualiza un perro por su ID.' })
-  @ApiParam({ name: 'id', type: Number }) 
+  @ApiParam({ name: 'id', type: String }) 
   @ApiBody({ type: Dog }) 
   @ApiResponse({ status: 200, description: 'Perro actualizado con éxito.', type: Dog })
   @ApiNotFoundResponse({ description: 'Perro no encontrado.' })
   @ApiBadRequestResponse({ description: 'Solicitud incorrecta.' })
-  update(@Param('id') id: number, @Body() updatedData: Dog): Dog {
-    return this.dogsService.update(id, updatedData);
+  async update(@Param('id') id: string, @Body() updatedData: Dog): Promise<Dog> {
+    return await this.dogsService.update(id, updatedData);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un perro por ID', description: 'Elimina un perro por su ID.' })
-  @ApiParam({ name: 'id', type: Number }) 
+  @ApiParam({ name: 'id', type: String }) 
   @ApiResponse({ status: 200, description: 'Perro eliminado con éxito.', type: Dog })
   @ApiNotFoundResponse({ description: 'Perro no encontrado.' })
-  remove(@Param('id') id: number): Dog {
+  remove(@Param('id') id: string): Dog {
     return this.dogsService.remove(id);
   }
 }

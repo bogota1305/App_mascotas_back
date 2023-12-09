@@ -1,14 +1,19 @@
 // src/dog/dog.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Dog } from './dog.model';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 @Injectable()
 export class DogsService {
   private readonly dogs: Dog[] = [];
+  
 
-  create(dogData: Dog): Dog {
+  async create(dogData: Dog): Promise<Dog> {
+
+    dogData.photos = await this.uploadImagesToStorage(dogData.photos);
+    
     const newDog: Dog = {
-      id: this.dogs.length + 1,
+      id: dogData.id,
       ...dogData,
     };
     this.dogs.push(newDog);
@@ -19,7 +24,33 @@ export class DogsService {
     return this.dogs;
   }
 
-  findById(id: number): Dog {
+  private async uploadImagesToStorage(images: string[]): Promise<string[]> {
+    const uploadedUrls: string[] = [];
+
+    for (const imageUrl of images) {
+      if (imageUrl.startsWith('https://firebasestorage.googleapis.com/')) {
+        uploadedUrls.push(imageUrl);
+      } else {
+        uploadedUrls.push(await this.uploadImage(imageUrl));
+      }
+    }
+
+    return uploadedUrls;
+  }
+
+  private async uploadImage(imageUrl: string): Promise<string> {
+    const storage = getStorage();
+    const imageName = `${Date.now()}_${Math.floor(Math.random() * 1000)}.png`;
+    const imagePath = `uploads/${imageName}`;
+    const storageRef = ref(storage, imagePath);
+
+    const imageBuffer = Buffer.from(imageUrl, 'base64');
+    await uploadBytes(storageRef, imageBuffer);
+
+    return  await getDownloadURL(storageRef);
+  }
+
+  findById(id: string): Dog {
     const dog = this.dogs.find((d) => d.id === id);
 
     if (!dog) {
@@ -29,12 +60,14 @@ export class DogsService {
     return dog;
   }
 
-  update(id: number, updatedData: Dog): Dog {
+  async update(id: string, updatedData: Dog): Promise<Dog> {
     const index = this.dogs.findIndex((d) => d.id === id);
 
     if (index === -1) {
       throw new NotFoundException(`Dog with ID ${id} not found`);
     }
+
+    updatedData.photos = await this.uploadImagesToStorage(updatedData.photos);
 
     const updatedDog = { ...this.dogs[index], ...updatedData };
     this.dogs[index] = updatedDog;
@@ -42,7 +75,7 @@ export class DogsService {
     return updatedDog;
   }
 
-  remove(id: number): Dog {
+  remove(id: string): Dog {
     const index = this.dogs.findIndex((d) => d.id === id);
 
     if (index === -1) {

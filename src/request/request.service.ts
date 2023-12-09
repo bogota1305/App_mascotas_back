@@ -8,7 +8,7 @@ export class RequestService {
 
   create(requestData: Request): Request {
     // Asigna un ID único a la solicitud (esto puede variar según tu implementación)
-    const requestId = this.requests.length + 1;
+    const requestId = `${requestData.idUsuarioSolicitante}${requestData.idUsuarioSolicitado}`;
 
     // Crea una nueva solicitud con un ID único y los datos proporcionados
     const newRequest: Request = { id: requestId, ...requestData };
@@ -23,8 +23,8 @@ export class RequestService {
     return this.requests;
   }
 
-  findById(id: number): Request {
-    const request = this.requests.find((req) => req.id === id);
+  findById(id: string): Request {
+    const request = this.requests.find((req) => req.id === id );
 
     if (!request) {
       throw new NotFoundException(`Request with ID ${id} not found`);
@@ -33,7 +33,7 @@ export class RequestService {
     return request;
   }
 
-  update(id: number, updatedData: Request): Request {
+  update(id: string, updatedData: Request): Request {
     const index = this.requests.findIndex((req) => req.id === id);
 
     if (index === -1) {
@@ -46,7 +46,7 @@ export class RequestService {
     return updatedRequest;
   }
 
-  remove(id: number): Request {
+  remove(id: string): Request {
     const index = this.requests.findIndex((req) => req.id === id);
 
     if (index === -1) {

@@ -56,8 +56,8 @@ export class User {
   @ApiProperty({ description: 'País del usuario' })
   pais: string;
 
-  @ApiProperty({ description: 'Fotos ID del usuario' })
-  fotosId: string[];
+  @ApiProperty({ description: 'Fotos del documento del usuario' })
+  fotosDocumento: string[];
 
   @ApiProperty({ type: () => Accommodation, description: 'Alojamiento del usuario' })
   alojamiento: Accommodation;
@@ -68,17 +68,23 @@ export class User {
   // @ApiProperty({ type: () => BankAccount, description: 'Cuenta bancaria del usuario' })
   // cuentaBancaria: BankAccount;
 
-  // @ApiProperty({ type: () => Rating, isArray: true, description: 'Calificaciones del usuario' })
-  // calificaciones: Rating[];
+  @ApiProperty({ type: () => Rating, isArray: true, description: 'Calificaciones del usuario' })
+  calificaciones: Rating[];
 
-  // @ApiProperty({ description: 'Solicitudes creadas por el usuario' })
-  // solicitudesCreadas: [];
+  @ApiProperty({ description: 'Calificación promedio del usuario' })
+  calificacionPromedio: number;
 
-  // @ApiProperty({ description: 'Solicitudes recibidas por el usuario' })
-  // solicitudesRecibidas: [];
+  @ApiProperty({ description: 'Solicitudes creadas por el usuario' })
+  solicitudesCreadas: Request[];
 
-  // @ApiProperty({ type: () => Veterinary, description: 'Clínica veterinaria del usuario' })
-  // clinicaVeterinaria: Veterinary;
+  @ApiProperty({ description: 'Solicitudes recibidas por el usuario' })
+  solicitudesRecibidas: Request[];
+
+  @ApiProperty({ type: () => Veterinary, description: 'Clínica veterinaria del usuario' })
+  clinicaVeterinaria: Veterinary;
+
+  @ApiProperty({ type: () => User, isArray: true, description: 'Id cuidadores favoritos' })
+  cuidadoresFavoritos: string[];
 
   // @ApiProperty({ type: () => Insurance, description: 'Seguro del usuario' })
   // seguro: Insurance;
@@ -90,3 +96,4 @@ export class User {
   // perrosNoAlojados: [];
 }
   
+
