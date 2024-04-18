@@ -28,6 +28,7 @@
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "^10.2.8",
     "@nestjs/swagger": "^7.1.14",
+    "@nestjs/cli": "^10.0.0",
     "axios": "^1.6.2",
     "body-parser": "^1.20.2",
     "crypt": "^0.0.2",
@@ -45,7 +46,6 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/express": "^4.17.17",
